@@ -3,13 +3,20 @@ import Link from 'next/link'
 import { Button } from '../ui/button';
 import { ScanText } from 'lucide-react';
 import NavLink from './nav-links';
-import { ModeToggle } from '../mode-toggle';
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
 
 function Header() {
 
-  const isLoggedIn = 0;
+  
   return (
-    <nav className='p-2 flex justify-between items-center py-4 lg:px-8 px-2 '>
+    <nav className='p-2 flex justify-between items-center py-4 lg:px-8 px-2  '>
 
       <div className='flex items-center gap-2'>
       
@@ -23,27 +30,44 @@ function Header() {
         
       </div>
 
-{/* 
+
       <div className='flex lg:justify-center gap-4 lg:gap-12 lg:items-center'>
         {
-          isLoggedIn ? <NavLink href="/dashboard">Your Summaries</NavLink>: <NavLink href="/pricing">Pricing</NavLink> 
+          <SignedIn><NavLink href="/dashboard">Your Summaries</NavLink></SignedIn> 
         }
         
         
-      </div> */}
+      </div>
+      
+
 
      
 
 
       <div className='flex lg:justify-end '>
-        {
-          isLoggedIn ? <div className='flex gap-2 items-center'>
-          <NavLink href="/upload">Upload PDF</NavLink>
-          <div>Pro</div>
-          <Button>User</Button>
-        </div> :  <div><NavLink href="/sign-in">Sign In</NavLink></div>
-        }
         
+        <SignedIn>
+            
+          <div className='flex gap-2 items-center'>
+
+            <NavLink href="/upload">Upload PDF</NavLink>
+              <div>Pro</div>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+        
+          </div>   
+        </SignedIn>
+        
+        <SignedOut>
+          <div>
+            <NavLink href="/sign-in">Sign In</NavLink>
+          </div>
+        </SignedOut>
+        
+        
+        
+      
 
        
         

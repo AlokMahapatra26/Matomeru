@@ -5,6 +5,7 @@ import Demo from "@/components/home/Demo";
 import Pricing from "@/components/home/Pricing";
 import CTA from "@/components/home/CTA"
 
+
 export default function Home() {
   return (
     <div className="relative w-full">

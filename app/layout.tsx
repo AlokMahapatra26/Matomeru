@@ -4,6 +4,15 @@ import "./globals.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
+
 
 // ⬇ Load Poppins with weights and subsets
   const poppins = Poppins({ subsets: ['latin'], weight: '400' })
@@ -30,7 +39,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-white text-gray-900" suppressHydrationWarning>
+    <ClerkProvider>
+        <html lang="en" className="bg-white text-gray-900" suppressHydrationWarning>
       <body
         className={poppins.className}
       >
@@ -51,5 +61,7 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
+    </ClerkProvider>
+  
   );
 }
