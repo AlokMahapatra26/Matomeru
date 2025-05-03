@@ -3,17 +3,57 @@ import React from 'react'
 import { UploadCloud } from 'lucide-react'
 import { Button } from '../ui/button'
 import UploadFormInput from './upload-form-input'
+import { z } from 'zod'
+import { useUploadThing } from '@/utils/uploadthing'
+
+const schema = z.object({
+    file:z.instanceof(File , {message : 'Invalid file'}).refine((file) => file.size <= 5 * 1024 * 1024 ,'File size must be less than 5MB').refine((file)=> file.type.startsWith('application/pdf'), 'File must be a PDF')
+})
+
 
 function UploadForm() {
 
-  const handleSubmit = (e : React.FormEvent<HTMLFormElement>) => {
+
+    const { startUpload , routeConfig } = useUploadThing(
+        "pdfUploader" , {
+            onClientUploadComplete : () => {
+                console.log('uploaded successfully');
+            },
+            onUploadError : ( err ) => {
+                console.log('error occured while uploading' , err)
+            },
+            onUploadBegin: ({ file }) => {
+                console.log('upload has begun for' , file)
+            }
+        }
+    )
+
+
+
+  const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log('Submitted ')
     const formData = new FormData(e.currentTarget);
     const file = formData.get('file') as File;
 
-    //validation of field
-    //schema with zod
+    //validation of field and //schema with zod
+    const validatedFields = schema.safeParse({file});
+
+    if(!validatedFields.success){
+        console.log(validatedFields.error.flatten().fieldErrors.file?.[0] ?? 'Invalid file');
+        return;
+    }
+
+    console.log(validatedFields)
+   
+    
     //upload tthe file to uploadthing
+
+    const response = await startUpload([file]);
+    if(!response){
+        return ;
+    }
+
     //parse the pdf using lang chain
     //summarise the pdf using AI
     //save the summary to th edata base
