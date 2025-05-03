@@ -35,8 +35,6 @@ function Header() {
         {
           <SignedIn><NavLink href="/dashboard">Your Summaries</NavLink></SignedIn> 
         }
-        
-        
       </div>
       
 
