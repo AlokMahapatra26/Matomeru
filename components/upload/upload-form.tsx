@@ -51,7 +51,7 @@ function UploadForm() {
 
     const response = await startUpload([file]);
     if(!response){
-        return ;
+        return
     }
 
     //parse the pdf using lang chain
