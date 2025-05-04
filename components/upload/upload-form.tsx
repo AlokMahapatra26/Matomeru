@@ -5,6 +5,7 @@ import { Button } from '../ui/button'
 import UploadFormInput from './upload-form-input'
 import { z } from 'zod'
 import { useUploadThing } from '@/utils/uploadthing'
+import { toast } from 'sonner'
 
 const schema = z.object({
     file:z.instanceof(File , {message : 'Invalid file'}).refine((file) => file.size <= 5 * 1024 * 1024 ,'File size must be less than 5MB').refine((file)=> file.type.startsWith('application/pdf'), 'File must be a PDF')
@@ -13,17 +14,20 @@ const schema = z.object({
 
 function UploadForm() {
 
-
+    
     const { startUpload , routeConfig } = useUploadThing(
         "pdfUploader" , {
             onClientUploadComplete : () => {
                 console.log('uploaded successfully');
+               
             },
             onUploadError : ( err ) => {
                 console.log('error occured while uploading' , err)
+                
             },
             onUploadBegin: ({ file }) => {
                 console.log('upload has begun for' , file)
+                
             }
         }
     )
@@ -41,18 +45,30 @@ function UploadForm() {
 
     if(!validatedFields.success){
         console.log(validatedFields.error.flatten().fieldErrors.file?.[0] ?? 'Invalid file');
+        toast("File validation failed" , {
+          description : validatedFields.error.flatten().fieldErrors.file?.[0] ?? 'Invalid file' ,
+        })
         return;
     }
 
-    console.log(validatedFields)
-   
     
     //upload tthe file to uploadthing
 
+    toast( "Uploading PDF" , {
+      description : "Please wait..."
+    })
+
     const response = await startUpload([file]);
     if(!response){
+        toast( "Something went wrong" , {
+          description : "Please use a different file"
+        })
         return
     }
+
+    toast( "Processing your PDF" , {
+      description : "Please wait while we processing your file"
+    })
 
     //parse the pdf using lang chain
     //summarise the pdf using AI

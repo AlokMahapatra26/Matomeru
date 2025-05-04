@@ -12,6 +12,7 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/nextjs'
+import { Toaster } from "@/components/ui/sonner";
 
 
 // ⬇ Load Poppins with weights and subsets
@@ -55,8 +56,9 @@ export default function RootLayout({
         <main className="flex-1">
         {children}
         </main>
-        
+       
         <Footer/>
+        <Toaster/>
         </div>
         </ThemeProvider>
       </body>
