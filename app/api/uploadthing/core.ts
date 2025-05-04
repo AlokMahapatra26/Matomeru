@@ -17,7 +17,7 @@ export const ourFileRouter = {
             console.log('upload completed' , metadata.userId);
             console.log('file url' , file.ufsUrl);
             // Ensure the return type is void or a compatible JsonObject
-            return { userId: metadata.userId, fileUrl: file.url };
+            return { userId: metadata.userId, file };
         })
 } satisfies FileRouter;
 

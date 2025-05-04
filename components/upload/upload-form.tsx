@@ -6,6 +6,7 @@ import UploadFormInput from './upload-form-input'
 import { z } from 'zod'
 import { useUploadThing } from '@/utils/uploadthing'
 import { toast } from 'sonner'
+import { generatePdfSummary } from '@/actions/upload-actions'
 
 const schema = z.object({
     file:z.instanceof(File , {message : 'Invalid file'}).refine((file) => file.size <= 5 * 1024 * 1024 ,'File size must be less than 5MB').refine((file)=> file.type.startsWith('application/pdf'), 'File must be a PDF')
@@ -65,12 +66,26 @@ function UploadForm() {
         })
         return
     }
+    console.log(response)
 
     toast( "Processing your PDF" , {
       description : "Please wait while we processing your file"
     })
 
+
+
+
+
+
+
     //parse the pdf using lang chain
+    const summary = await generatePdfSummary([response[0]]);
+    console.log({summary})
+
+
+
+
+
     //summarise the pdf using AI
     //save the summary to th edata base
     //redirect to the summary page
