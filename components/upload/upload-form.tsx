@@ -8,6 +8,7 @@ import { useUploadThing } from '@/utils/uploadthing'
 import { toast } from 'sonner'
 import { generatePdfSummary } from '@/actions/upload-actions'
 
+
 const schema = z.object({
     file:z.instanceof(File , {message : 'Invalid file'}).refine((file) => file.size <= 5 * 1024 * 1024 ,'File size must be less than 5MB').refine((file)=> file.type.startsWith('application/pdf'), 'File must be a PDF')
 })
@@ -15,8 +16,10 @@ const schema = z.object({
 
 function UploadForm() {
 
+  
+
     
-    const { startUpload , routeConfig } = useUploadThing(
+    const { startUpload } = useUploadThing(
         "pdfUploader" , {
             onClientUploadComplete : () => {
                 console.log('uploaded successfully');
@@ -79,8 +82,26 @@ function UploadForm() {
 
 
     //parse the pdf using lang chain
-    const summary = await generatePdfSummary([response[0]]);
-    console.log({summary})
+    const result = await generatePdfSummary(response);
+    console.log(result)
+
+
+    const {data = null, message = null} = result || {}
+
+    if(data){
+
+      toast( "Saving your PDF..." , {
+        description : "PDF Summary is ready , we are saving your summary "
+      })
+  
+  
+      // if(data.summary){
+      //    //save the summary to database
+      // }
+
+
+     
+    }
 
 
 
@@ -103,7 +124,7 @@ function UploadForm() {
             </h2>
 
                
-            <UploadFormInput onSubmit={handleSubmit} />
+            <UploadFormInput onSubmit={handleSubmit}  />
             <p className="text-sm text-gray-500">
               Supported format: PDF only. Max size: 10MB
             </p>

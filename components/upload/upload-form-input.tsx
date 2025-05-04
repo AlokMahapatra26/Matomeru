@@ -7,7 +7,7 @@ interface UploadFormInputProps {
     onSubmit: (e : React.FormEvent<HTMLFormElement>) => void;
 }
 
-function UploadFormInput({onSubmit} : UploadFormInputProps) {
+function UploadFormInput({onSubmit } : UploadFormInputProps) {
   return (
     <form className='flex flex-col gap-6' onSubmit={onSubmit}>
         <div className='flex justify-end items-center gap-1.5'>
