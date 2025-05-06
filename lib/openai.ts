@@ -17,7 +17,7 @@ export async function generateSummaryFromOpenAI(pdfText:string){
                 },
                 {
                     role: "user",
-                    content: `Transform this document into an angaging , easy to read summary with contexually relevent emojis and proper markdown formatting: /n /n ${pdfText}`,
+                    content: `:talk bull shit on the text and roast him or her in houmur way and /n /n ${pdfText}`,
                 },
             ],
             temperature: 0.7,
@@ -31,7 +31,7 @@ export async function generateSummaryFromOpenAI(pdfText:string){
         }
         throw error;
     }
-
+    // Transform this document into an angaging , easy to read summary with contexually relevent emojis and proper markdown formatting
 
 
 }

@@ -16,7 +16,8 @@ const schema = z.object({
 
 function UploadForm() {
 
-  
+  const [summary, setSummary] = React.useState<string | null>(null);
+
 
     
     const { startUpload } = useUploadThing(
@@ -83,32 +84,15 @@ function UploadForm() {
 
     //parse the pdf using lang chain
     const result = await generatePdfSummary(response);
-    console.log(result)
+    setSummary(typeof result === 'string' ? result : null);
 
 
-    const {data = null, message = null} = result || {}
-
-    if(data){
-
-      toast( "Saving your PDF..." , {
-        description : "PDF Summary is ready , we are saving your summary "
-      })
   
-  
-      // if(data.summary){
-      //    //save the summary to database
-      // }
-
-
-     
-    }
-
-
-
-
-
     //summarise the pdf using AI
+
     //save the summary to th edata base
+    
+
     //redirect to the summary page
 
 
@@ -128,6 +112,14 @@ function UploadForm() {
             <p className="text-sm text-gray-500">
               Supported format: PDF only. Max size: 10MB
             </p>
+            {summary && (
+  <>
+    <h3 className="text-lg font-medium text-gray-700 mt-6">📄 PDF Summary</h3>
+    <div className="w-full p-4 mt-2 bg-gray-100 rounded-lg border border-gray-300 text-sm text-gray-800 whitespace-pre-line max-h-96 overflow-y-auto shadow-inner">
+      {summary}
+    </div>
+  </>
+)}
           </div>
         </div>
   )
