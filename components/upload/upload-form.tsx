@@ -6,7 +6,7 @@ import UploadFormInput from './upload-form-input'
 import { z } from 'zod'
 import { useUploadThing } from '@/utils/uploadthing'
 import { toast } from 'sonner'
-import { generatePdfSummary } from '@/actions/upload-actions'
+import { generatePdfSummary, storePdfSummaryAction } from '@/actions/upload-actions'
 
 
 const schema = z.object({
@@ -17,6 +17,8 @@ const schema = z.object({
 function UploadForm() {
 
   const [summary, setSummary] = React.useState<string | null>(null);
+
+  
 
 
     
@@ -41,6 +43,7 @@ function UploadForm() {
 
   const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     console.log('Submitted ')
     const formData = new FormData(e.currentTarget);
     const file = formData.get('file') as File;
@@ -84,17 +87,31 @@ function UploadForm() {
 
     //parse the pdf using lang chain
     const result = await generatePdfSummary(response);
-    setSummary(typeof result === 'string' ? result : null);
-
-
-  
-    //summarise the pdf using AI
-
-    //save the summary to th edata base
     
 
-    //redirect to the summary page
+    const { data = null , message = null } = result || {};
 
+    if(data) {
+      let storeResult: any;
+      toast( "Saving Your PDF..." , {
+        description : "Please wait while we processing your file"
+      })
+      if(data.summary){
+        storeResult = await storePdfSummaryAction({
+          summary: data.summary,
+          fileUrl : response[0].serverData.file.url,
+          title: data.title,
+          fileName: file.name,
+        })
+      }else{
+        console.log("ella no summary")
+      }
+
+      toast("Summary Saved" , {
+        description : 'Summary Saved to your database'
+      })
+    }
+  
 
   }  
 
