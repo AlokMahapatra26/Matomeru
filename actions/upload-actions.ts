@@ -5,6 +5,7 @@ import { generateSummaryFromGemini } from "@/lib/geminiai";
 import { auth } from "@clerk/nextjs/server";
 import { getDbConnection } from "@/lib/db";
 import { formatFileNameAsTitle } from "@/utils/format-utils";
+import { revalidatePath } from "next/cache";
 
 export async function generatePdfSummary(uploadResponse: [{
     serverData : {
@@ -157,16 +158,22 @@ export async function storePdfSummaryAction({fileUrl , summary , title , fileNam
             }
         }
 
-        return {
-            success : true,
-            message : 'Pdf sumamry saved successfully'
-           
-        }
+       
     }catch(error) {
         return {
             success : false,
             message : error instanceof Error ? error.message : 'Error saving PDF summary',
             
+        }
+    }
+
+    revalidatePath(`/summaries/${savedSummary.id}`);
+
+    return {
+        success : true,
+        message : 'Pdf sumamry saved successfully',
+        data : {
+            id : savedSummary.id,
         }
     }
 }

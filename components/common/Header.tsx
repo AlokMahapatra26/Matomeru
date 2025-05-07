@@ -22,7 +22,7 @@ function Header() {
       
         <NavLink href="/" className='text-xl flex items-center gap-1 lg:gap-2 shrink-0'>
         <ScanText className='w-5 h-5 lg:w-8 lg:h-8 text-gray-900 hover:rotate-12 transform transition duration-200 ease-in-out inline'/>
-        <span className='font-extrabold lg:text-xl text-gray-900'> Matomeru</span>
+        <span className='font-extrabold lg:text-xl text-gray-900'> Resume Guru</span>
        
         
         </NavLink>

@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { useUploadThing } from '@/utils/uploadthing'
 import { toast } from 'sonner'
 import { generatePdfSummary, storePdfSummaryAction } from '@/actions/upload-actions'
+import { useRouter } from 'next/navigation'
 
 
 const schema = z.object({
@@ -17,7 +18,7 @@ const schema = z.object({
 function UploadForm() {
 
   const [summary, setSummary] = React.useState<string | null>(null);
-
+  const router = useRouter()
   
 
 
@@ -110,6 +111,9 @@ function UploadForm() {
       toast("Summary Saved" , {
         description : 'Summary Saved to your database'
       })
+
+      router.push(`/summaries/${storeResult.data.id}`)
+
     }
   
 
