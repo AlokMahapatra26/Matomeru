@@ -112,7 +112,7 @@ function UploadForm() {
         description : 'Summary Saved to your database'
       })
 
-      router.push(`/summaries/${storeResult.data.id}`)
+      router.push(`/resumes/${storeResult.data.id}`)
 
     }
   
