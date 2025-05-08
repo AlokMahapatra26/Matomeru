@@ -33,7 +33,7 @@ function Header() {
 
       <div className='flex lg:justify-center gap-4 lg:gap-12 lg:items-center'>
         {
-          <SignedIn><NavLink href="/dashboard">Your Summaries</NavLink></SignedIn> 
+          <SignedIn><NavLink href="/dashboard">Your Resumes</NavLink></SignedIn> 
         }
       </div>
       
