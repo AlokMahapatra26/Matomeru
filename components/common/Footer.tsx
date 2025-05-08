@@ -8,7 +8,7 @@ export default function Footer() {
         
         {/* Logo + About */}
         <div className="space-y-4">
-          <h2 className="text-lg font-bold text-white">Matomeru</h2>
+          <h2 className="text-lg font-bold text-white">PDF Summariser</h2>
           <p className="text-gray-400">
             Summarize PDFs beautifully with the power of AI. Save time, grasp insights instantly.
           </p>

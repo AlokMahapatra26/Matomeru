@@ -22,16 +22,16 @@ const Page = async () => {
       <div className="max-w-6xl mx-auto flex flex-col gap-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Your Resumes</h1>
+            <h1 className="text-3xl font-bold text-gray-900">Your Documents</h1>
             <p className="text-gray-600 mt-1 text-sm">
-              Make your resume align with your job role and be ATS friendly.
+              Summarise your pdf , so that you dont need to read it completelt
             </p>
           </div>
 
           <Link href="/upload">
-            <Button className="flex items-center gap-2 hover:scale-105 transition-all">
+            <Button className="cursor-pointer flex items-center gap-2 hover:scale-105 transition-all">
               <PlusCircle className="w-4 h-4" />
-              Add Resume
+              Add Pdf
             </Button>
           </Link>
         </div>
