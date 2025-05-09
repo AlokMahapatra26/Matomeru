@@ -4,10 +4,9 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {  Sparkles , ArrowRightCircle } from 'lucide-react'
 import Link from 'next/link'
-import { currentUser } from '@clerk/nextjs/server'
 
 function HeroSection() {
-  const user = currentUser();
+  
   return (
     <section className="relative mx-auto z-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-12 py-12 sm:py-20 lg:pb-28 max-w-7xl transition-all animate-in ">
   <div className="w-full flex flex-col items-center text-center">

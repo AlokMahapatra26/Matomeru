@@ -1,15 +1,14 @@
-
 import HeroSection from "@/components/home/Hero";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Demo from "@/components/home/Demo";
 import Pricing from "@/components/home/Pricing";
 import CTA from "@/components/home/CTA"
 import { currentUser } from "@clerk/nextjs/server";
 
-export default async function Home() {
+export default  async function Home() {
 
   const user = await currentUser()
+
+  
   return (
     <div className="relative w-full">
       
@@ -18,7 +17,7 @@ export default async function Home() {
       {!user ? (
   <>
     <Demo />
-    <Pricing />
+    {/* <Pricing /> */}
     <CTA />
   </>
 ) : null}

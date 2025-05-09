@@ -1,3 +1,4 @@
+
 import { FileText, Sparkles, UploadCloud, Wand2, Download } from 'lucide-react';
 
 const steps = [
@@ -50,11 +51,7 @@ function Demo() {
         ))}
       </div>
 
-      {/* 🪄 Demo Display Area */}
-      <div className="min-h-[300px] border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center text-gray-400 text-sm">
-        {/* 🧪 You can inject your demo component here */}
-        Demo Area (Coming Soon)
-      </div>
+      
     </section>
   );
 }

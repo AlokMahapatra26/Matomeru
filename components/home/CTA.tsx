@@ -1,3 +1,4 @@
+
 import { ArrowRightCircle } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -16,7 +17,7 @@ export default function CTASection() {
           variant="link"
           className="bg-white text-rose-600 hover:bg-rose-100 px-6 py-3 rounded-full text-sm sm:text-base transition-all duration-300 shadow-lg hover:scale-105"
         >
-          <Link href="/#pricing" className="flex items-center gap-2">
+          <Link href="/upload" className="flex items-center gap-2">
             <span className="font-semibold">Get Started Free</span>
             <ArrowRightCircle className="w-5 h-5 animate-pulse" />
           </Link>
